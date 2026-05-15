@@ -4,43 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-    <title>Přidat novou knihu</title>
+    <title>Fotbalová Soupiska</title>
 </head>
-<body class="bg-[#1a1c1e] text-slate-200 min-h-screen font-sans flex flex-col">
+<body class="bg-slate-50 text-slate-800 min-h-screen font-sans flex flex-col selection:bg-blue-500 selection:text-white">
 
-    <header class="bg-gradient-to-b from-slate-700 to-slate-900 border-b border-slate-600 shadow-xl">
+    <header class="bg-gradient-to-r from-blue-900 to-blue-700 shadow-md sticky top-0 z-50">
         <div class="container mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center">
-            <h1 class="text-2xl font-bold tracking-tight text-white uppercase italic">
-                Aplikace <span class="text-blue-400">Knihovna</span>
-            </h1>
             
-          <nav class="mt-4 md:mt-0">
-                <ul class="flex items-center space-x-6">
+            <a href="<?= BASE_URL ?>/index.php" class="flex items-center group">
+                <img src="<?= BASE_URL ?>/img/logo.png" alt="Soupiska Logo" 
+                     class="h-12 md:h-14 w-auto bg-white px-4 py-2 rounded-xl shadow-sm transition-transform duration-300 group-hover:scale-105 border border-blue-200">
+            </a>
+            
+            <nav class="mt-4 md:mt-0">
+                <ul class="flex items-center space-x-6 text-sm uppercase tracking-wider font-bold">
                     <li>
-                        <a href="<?= BASE_URL ?>/index.php" class="hover:text-blue-400 transition-colors font-medium">Seznam knih</a>
+                        <a href="<?= BASE_URL ?>/index.php" class="text-blue-100 hover:text-white transition-colors">Tým</a>
                     </li>
 
                     <?php if (isset($_SESSION['user_id'])): ?>
                         <li>
-                            <a href="<?= BASE_URL ?>/index.php?url=book/create" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-md transition-all shadow-inner border border-blue-500">
-                                + Přidat knihu
+                            <a href="<?= BASE_URL ?>/index.php?url=player/create" class="bg-white text-blue-800 hover:bg-blue-50 px-6 py-2.5 rounded-full transition-all shadow-md border border-white">
+                                + Nový hráč
                             </a>
                         </li>
-                        <li class="text-slate-400 text-sm">
-                            Ahoj, <span class="text-white font-semibold tracking-wide"><?= htmlspecialchars($_SESSION['user_name']) ?></span>
+                        <li class="text-blue-200 border-l border-blue-500 pl-6">
+                            Trenér: <span class="text-white"><?= htmlspecialchars($_SESSION['user_name']) ?></span>
                         </li>
                         <li>
-                            <a href="<?= BASE_URL ?>/index.php?url=auth/logout" class="text-rose-400 hover:text-white transition-colors text-sm uppercase tracking-wider font-medium">
+                            <a href="<?= BASE_URL ?>/index.php?url=auth/logout" class="text-blue-200 hover:text-white transition-colors">
                                 Odhlásit
                             </a>
                         </li>
 
                     <?php else: ?>
                         <li>
-                            <a href="<?= BASE_URL ?>/index.php?url=auth/login" class="hover:text-blue-400 transition-colors font-medium">Přihlásit</a>
+                            <a href="<?= BASE_URL ?>/index.php?url=auth/login" class="text-blue-100 hover:text-white transition-colors">Přihlásit</a>
                         </li>
                         <li>
-                            <a href="<?= BASE_URL ?>/index.php?url=auth/register" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-md transition-all shadow-inner border border-slate-600">
+                            <a href="<?= BASE_URL ?>/index.php?url=auth/register" class="bg-blue-800 hover:bg-blue-900 text-white px-6 py-2.5 rounded-full transition-all border border-blue-600">
                                 Registrace
                             </a>
                         </li>
@@ -52,19 +54,19 @@
 
     <div class="container mx-auto px-6 pt-8">
         <?php if (isset($_SESSION['messages']) && !empty($_SESSION['messages'])): ?>
-            <div class="space-y-3">
+            <div class="space-y-3 mb-6">
                 <?php foreach ($_SESSION['messages'] as $type => $messages): ?>
                     <?php 
                         $styles = [
-                            'success' => 'bg-emerald-900/30 border-emerald-500 text-emerald-400',
-                            'error'   => 'bg-rose-900/30 border-rose-500 text-rose-400',
-                            'notice'  => 'bg-amber-900/30 border-amber-500 text-amber-400',
+                            'success' => 'bg-emerald-100 border-emerald-500 text-emerald-800',
+                            'error'   => 'bg-rose-100 border-rose-500 text-rose-800',
+                            'notice'  => 'bg-amber-100 border-amber-500 text-amber-800',
                         ];
-                        $style = $styles[$type] ?? 'bg-slate-800 border-slate-500 text-slate-300';
+                        $style = $styles[$type] ?? 'bg-blue-100 border-blue-500 text-blue-800';
                     ?>
                     <?php foreach ($messages as $message): ?>
-                        <div class="<?= $style ?> border-l-4 p-4 rounded-r-lg shadow-md animate-fade-in">
-                            <p class="font-semibold text-sm italic"><?= htmlspecialchars($message) ?></p>
+                        <div class="<?= $style ?> border-l-4 p-4 rounded-r-lg shadow-sm">
+                            <p class="font-semibold text-sm tracking-wide"><?= htmlspecialchars($message) ?></p>
                         </div>
                     <?php endforeach; ?>
                 <?php endforeach; ?>

@@ -12,7 +12,7 @@ error_reporting(E_ALL);
 // Vypočítá absolutní cestu ke složce, ve které běží tento index.php
 $baseDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
 define('BASE_URL', $baseDir);
-echo($baseDir);
+// echo($baseDir);
 
 
 
