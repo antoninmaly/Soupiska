@@ -83,8 +83,14 @@
                         $style = $styles[$type] ?? 'bg-blue-100 border-blue-500 text-blue-800';
                     ?>
                     <?php foreach ($messages as $message): ?>
-                        <div class="<?= $style ?> border-l-4 p-4 rounded-r-lg shadow-sm">
+                        <div class="<?= $style ?> border-l-4 p-4 rounded-r-lg shadow-sm flex justify-between items-center transition-all duration-300">
                             <p class="font-semibold text-sm tracking-wide"><?= htmlspecialchars($message) ?></p>
+                            
+                            <button type="button" onclick="this.parentElement.remove()" class="ml-4 opacity-50 hover:opacity-100 transition-opacity focus:outline-none">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
                         </div>
                     <?php endforeach; ?>
                 <?php endforeach; ?>
