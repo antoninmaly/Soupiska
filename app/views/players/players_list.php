@@ -21,6 +21,7 @@
                                 <th class="px-6 py-4 font-bold uppercase text-xs tracking-wider text-center w-16">#</th>
                                 <th class="px-6 py-4 font-bold uppercase text-xs tracking-wider">Hráč</th>
                                 <th class="px-6 py-4 font-bold uppercase text-xs tracking-wider">Klub</th>
+                                <th class="px-6 py-4 font-bold uppercase text-xs tracking-wider">Národnost</th>
                                 <th class="px-6 py-4 font-bold uppercase text-xs tracking-wider">Pozice</th>
                                 <th class="px-6 py-4 font-bold uppercase text-xs tracking-wider">Ročník</th>
                                 <th class="px-6 py-4 font-bold uppercase text-xs tracking-wider text-center">Akce</th>
@@ -36,11 +37,16 @@
                                     </td>
                                     <td class="px-6 py-4">
                                         <div class="font-bold text-slate-800 text-lg group-hover:text-blue-700 transition-colors">
-                                            <?= htmlspecialchars($player['first_name'] . ' ' . $player['last_name']) ?>
+                                            <a href="<?= BASE_URL ?>/index.php?url=player/show/<?= $player['id'] ?>" class="hover:underline">
+                                                <?= htmlspecialchars($player['first_name'] . ' ' . $player['last_name']) ?>
+                                            </a>
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 text-slate-600 font-medium">
                                         <?= htmlspecialchars($player['club']) ?>
+                                    </td>
+                                    <td class="px-6 py-4 font-medium text-slate-700">
+                                        <?= !empty($player['nationality']) ? htmlspecialchars($player['nationality']) : '---' ?>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="bg-blue-100/50 text-blue-800 px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider border border-blue-200">
@@ -52,6 +58,7 @@
                                     </td>
                                     <td class="px-6 py-4 text-center">
                                         <div class="flex justify-center space-x-4 text-sm font-semibold tracking-wide">
+                                            <a href="<?= BASE_URL ?>/index.php?url=player/show/<?= $player['id'] ?>" class="text-slate-500 hover:text-blue-700 transition-colors">Detail</a>
                                             <?php 
                                             $isAdmin = isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1;
                                             if (isset($_SESSION['user_id']) && ($_SESSION['user_id'] === $player['created_by'] || $isAdmin)): 

@@ -310,6 +310,50 @@ class PlayerController {
         }
     }
 
+    // 6. Zobrazení detailu jednoho konkrétního hráče
+    public function show($id = null) {
+        // Kontrola, zda bylo v URL předáno ID
+        if (!$id) {
+            $this->addErrorMessage('Nebylo zadáno ID hráče pro zobrazení detailu.');
+            header('Location: ' . BASE_URL . '/index.php');
+            exit;
+        }
+
+        // Načtení potřebných tříd a spojení s databází
+        require_once '../app/models/Database.php';
+        require_once '../app/models/Player.php';
+        require_once '../app/models/Position.php'; // Přidali jsme načtení modelu pozic
+
+        $database = new Database();
+        $db = $database->getConnection();
+
+        // Inicializace modelu a získání dat o konkrétním hráči podle ID
+        $playerModel = new Player($db);
+        $player = $playerModel->getById($id); 
+
+        // Bezpečnostní kontrola: Zda hráč s daným ID vůbec existuje
+        if (!$player) {
+            $this->addErrorMessage('Požadovaný hráč nebyl v databázi nalezen.');
+            header('Location: ' . BASE_URL . '/index.php');
+            exit;
+        }
+
+        // Vytáhneme si všechny pozice a najdeme tu, která odpovídá position_id hráče
+        $positionModel = new Position($db);
+        $positions = $positionModel->getAllPositions();
+        
+        $player['position_name'] = 'Nezařazeno';
+        foreach ($positions as $pos) {
+            if ($pos['id'] == $player['position_id']) {
+                $player['position_name'] = $pos['name'];
+                break; // Jakmile najdeme shodu, cyklus ukončíme
+            }
+        }
+
+        // Načtení připraveného souboru s HTML profilem hráče
+        require_once '../app/views/players/player_show.php';
+    }
+
     // --- Pomocné metody pro systém notifikací ---
 
     protected function addSuccessMessage($message) {
