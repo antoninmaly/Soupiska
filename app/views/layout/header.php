@@ -11,7 +11,7 @@
     <header class="bg-gradient-to-r from-blue-900 to-blue-700 shadow-md sticky top-0 z-50">
         <div class="container mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center">
             
-            <a href="<?= BASE_URL ?>/index.php" class="flex items-center group">
+            <a href="<?= BASE_URL ?>/index.php" class="shrink-0 mr-8 whitespace-nowrap flex items-center group">
                 <img src="<?= BASE_URL ?>/img/logo.png" alt="Soupiska Logo" 
                      class="h-12 md:h-14 w-auto bg-white px-4 py-2 rounded-xl shadow-sm transition-transform duration-300 group-hover:scale-105 border border-blue-200">
             </a>
@@ -24,7 +24,7 @@
 
                     <?php if (isset($_SESSION['user_id'])): ?>
                         <li>
-                            <a href="<?= BASE_URL ?>/index.php?url=player/create" class="bg-white text-blue-800 hover:bg-blue-50 px-6 py-2.5 rounded-full transition-all shadow-md border border-white">
+                            <a href="<?= BASE_URL ?>/index.php?url=player/create" class="whitespace-nowrap bg-white text-blue-800 hover:bg-blue-50 px-6 py-2.5 rounded-full transition-all shadow-md border border-white">
                                 + Nový hráč
                             </a>
                         </li>
@@ -43,7 +43,7 @@
 
                         <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1): ?>
                             <li>
-                                <a href="<?= BASE_URL ?>/index.php?url=auth/users" class="text-amber-400 hover:text-amber-200 uppercase tracking-widest text-xs font-black transition-colors flex items-center">
+                                <a href="<?= BASE_URL ?>/index.php?url=auth/users" class="whitespace-nowrap text-amber-400 hover:text-amber-200 uppercase tracking-widest text-xs font-black transition-colors flex items-center">
                                     ⚙️ Správa uživatelů
                                 </a>
                             </li>
