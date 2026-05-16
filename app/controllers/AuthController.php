@@ -193,7 +193,7 @@ class AuthController {
         $userModel = new User($db);
 
         if ($userModel->delete($id)) {
-            $_SESSION['messages']['success'][] = "Uživatel (Trenér) byl úspěšně vyřazen ze systému.";
+            $_SESSION['messages']['success'][] = "Uživatel byl úspěšně vyřazen ze systému.";
         } else {
             $_SESSION['messages']['error'][] = "Uživatele se nepodařilo smazat.";
         }

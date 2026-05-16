@@ -4,7 +4,7 @@
         
         <div class="flex justify-between items-end mb-8 border-b border-gray-200 pb-4">
             <h2 class="text-4xl font-bold tracking-tight text-blue-900 uppercase">
-                Aktuální soupiska
+                Týmová soupiska
             </h2>
         </div>
         

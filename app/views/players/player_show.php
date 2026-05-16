@@ -108,7 +108,7 @@
                     </div>
                 </div>
 
-                <div class="border-t border-gray-100 pt-4 mt-6 flex justify-between text-[11px] text-slate-400 font-medium">
+                <div class="flex justify-between text-[11px] text-slate-400 font-medium">
                     <span>Vytvořil uživatel: 
                         <strong class="text-slate-500">
                             <?php 
@@ -117,7 +117,7 @@
                             } elseif (!empty($player['user_first_name'])) {
                                 echo htmlspecialchars($player['user_first_name'] . ' ' . $player['user_last_name']);
                             } else {
-                                echo htmlspecialchars($player['username'] ?? 'Neznámý kouč');
+                                echo htmlspecialchars($player['username'] ?? 'Neznámý trenér');
                             }
                             ?>
                         </strong>
