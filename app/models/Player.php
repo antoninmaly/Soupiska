@@ -31,7 +31,7 @@ class Player {
             ':position_id' => $position_id,
             ':club' => $club,
             ':jersey_number' => $jersey_number,
-            ':birth_date' => $birth_year,
+            ':birth_date' => $birth_date,
             ':market_value' => $market_value,
             ':nationality' => $nationality,
             ':description' => $description,
