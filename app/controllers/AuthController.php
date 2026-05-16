@@ -112,6 +112,109 @@ class AuthController {
         exit;
     }
 
+    // 6. Zobrazení profilu aktuálně přihlášeného uživatele
+    public function profile() {
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: ' . BASE_URL . '/index.php?url=auth/login');
+            exit;
+        }
+
+        require_once '../app/models/Database.php';
+        require_once '../app/models/User.php';
+
+        $database = new Database();
+        $db = $database->getConnection();
+        $userModel = new User($db);
+
+        // Načteme čerstvá data z DB
+        $user = $userModel->getById($_SESSION['user_id']);
+
+        require_once '../app/views/auth/profile.php';
+    }
+
+    // 7. Zpracování úpravy profilu
+    public function updateProfile() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_SESSION['user_id'])) {
+            header('Location: ' . BASE_URL . '/index.php');
+            exit;
+        }
+
+        require_once '../app/models/Database.php';
+        require_once '../app/models/User.php';
+
+        $database = new Database();
+        $db = $database->getConnection();
+        $userModel = new User($db);
+
+        $first_name = $_POST['first_name'] ?? '';
+        $last_name = $_POST['last_name'] ?? '';
+        $nickname = $_POST['nickname'] ?? '';
+        $email = $_POST['email'] ?? '';
+
+        if ($userModel->updateProfile($_SESSION['user_id'], $first_name, $last_name, $nickname, $email)) {
+            // Aktualizujeme jméno i v Session, aby se hned změnilo v hlavičce webu
+            $_SESSION['user_name'] = !empty($nickname) ? $nickname : ($_POST['username'] ?? $_SESSION['user_name']);
+            $_SESSION['messages']['success'][] = "Profil byl úspěšně aktualizován.";
+        } else {
+            $_SESSION['messages']['error'][] = "Při aktualizaci profilu došlo k chybě.";
+        }
+
+        header('Location: ' . BASE_URL . '/index.php?url=auth/profile');
+        exit;
+    }
+
+    // 8. Oprávnění pro mazání: Smazání uživatele (Pouze pro Administrátora)
+    public function deleteUser($id = null) {
+        // KRITICKÁ KONTROLA: Je přihlášený uživatel vůbec administrátor?
+        if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] != 1) {
+            $_SESSION['messages']['error'][] = "Nedostatečná oprávnění. Smazání uživatele může provést pouze administrátor.";
+            header('Location: ' . BASE_URL . '/index.php');
+            exit;
+        }
+
+        if (!$id) {
+            $_SESSION['messages']['error'][] = "Nebylo zadáno ID uživatele.";
+            header('Location: ' . BASE_URL . '/index.php');
+            exit;
+        }
+
+        require_once '../app/models/Database.php';
+        require_once '../app/models/User.php';
+
+        $database = new Database();
+        $db = $database->getConnection();
+        $userModel = new User($db);
+
+        if ($userModel->delete($id)) {
+            $_SESSION['messages']['success'][] = "Uživatel (Trenér) byl úspěšně vyřazen ze systému.";
+        } else {
+            $_SESSION['messages']['error'][] = "Uživatele se nepodařilo smazat.";
+        }
+
+        header('Location: ' . BASE_URL . '/index.php');
+        exit;
+    }
+
+    // 9. Zobrazení seznamu uživatelů (Pouze pro Administrátora)
+    public function users() {
+        if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] != 1) {
+            $_SESSION['messages']['error'][] = "Přístup odepřen. Tuto stránku vidí pouze administrátor.";
+            header('Location: ' . BASE_URL . '/index.php');
+            exit;
+        }
+
+        require_once '../app/models/Database.php';
+        require_once '../app/models/User.php';
+
+        $database = new Database();
+        $db = $database->getConnection();
+        $userModel = new User($db);
+
+        $users = $userModel->getAllUsers();
+
+        require_once '../app/views/auth/users_list.php';
+    }
+
     // --- Pomocné metody pro notifikace (stejné jako v BookControlleru) ---
     protected function addSuccessMessage($message) {
         $_SESSION['messages']['success'][] = $message;

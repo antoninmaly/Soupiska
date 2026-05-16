@@ -28,9 +28,27 @@
                                 + Nový hráč
                             </a>
                         </li>
-                        <li class="text-blue-200 border-l border-blue-500 pl-6">
-                            Trenér: <span class="text-white"><?= htmlspecialchars($_SESSION['user_name']) ?></span>
+                        <li class="text-blue-200 border-l border-blue-500 pl-6 flex items-center">
+                            <span class="mr-2">Trenér:</span> 
+                            <a href="<?= BASE_URL ?>/index.php?url=auth/profile" class="text-white hover:text-blue-300 transition-colors font-bold flex items-center group">
+                                <span class="group-hover:underline"><?= htmlspecialchars($_SESSION['user_name']) ?></span>
+                                
+                                <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1): ?>
+                                    <span class="ml-2 bg-amber-500 text-white text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full shadow-md group-hover:bg-amber-600 transition-colors border border-amber-600">
+                                        Admin
+                                    </span>
+                                <?php endif; ?>
+                            </a>
                         </li>
+
+                        <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1): ?>
+                            <li>
+                                <a href="<?= BASE_URL ?>/index.php?url=auth/users" class="text-amber-400 hover:text-amber-200 uppercase tracking-widest text-xs font-black transition-colors flex items-center">
+                                    ⚙️ Správa uživatelů
+                                </a>
+                            </li>
+                        <?php endif; ?>
+                        
                         <li>
                             <a href="<?= BASE_URL ?>/index.php?url=auth/logout" class="text-blue-200 hover:text-white transition-colors">
                                 Odhlásit

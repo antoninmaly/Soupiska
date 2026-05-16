@@ -9,13 +9,13 @@ class User {
 
     // 1. Registrace nového uživatele (nyní přijímá i jméno, příjmení a přezdívku)
     public function register(
-        string $username, 
-        string $email, 
-        string $password, 
-        ?string $firstName = null, 
-        ?string $lastName = null, 
-        ?string $nickname = null
-    ): bool {
+            string $username, 
+            string $email, 
+            string $password, 
+            ?string $firstName = null, 
+            ?string $lastName = null, 
+            ?string $nickname = null
+        ): bool {
         // Kontrola, zda uživatel s tímto emailem už neexistuje
         if ($this->findByEmail($email)) {
             return false; // Email už je zabraný
@@ -57,5 +57,50 @@ class User {
         $stmt->execute([':id' => $id]);
         
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // 4. Načtení všech uživatelů pro administraci
+    public function getAllUsers() {
+        $query = "SELECT id, username, email, first_name, last_name, nickname, is_admin FROM users ORDER BY is_admin DESC, username ASC";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // 5. Získání dat jednoho uživatele podle ID
+    public function getById($id) {
+        $query = "SELECT id, username, email, first_name, last_name, nickname, is_admin FROM users WHERE id = :id LIMIT 0,1";
+        // Změna: používáme $this->db místo $this->conn
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // 6. Aktualizace profilových údajů uživatele
+    public function updateProfile($id, $first_name, $last_name, $nickname, $email) {
+        $query = "UPDATE users 
+                  SET first_name = :first_name, last_name = :last_name, nickname = :nickname, email = :email 
+                  WHERE id = :id";
+        
+        // Změna: používáme $this->db místo $this->conn
+        $stmt = $this->db->prepare($query);
+        
+        $stmt->bindParam(':first_name', htmlspecialchars($first_name));
+        $stmt->bindParam(':last_name', htmlspecialchars($last_name));
+        $stmt->bindParam(':nickname', htmlspecialchars($nickname));
+        $stmt->bindParam(':email', htmlspecialchars($email));
+        $stmt->bindParam(':id', $id);
+        
+        return $stmt->execute();
+    }
+
+    // 7. Smazání uživatele z databáze
+    public function delete($id) {
+        $query = "DELETE FROM users WHERE id = :id";
+        // Změna: používáme $this->db místo $this->conn
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id', $id);
+        return $stmt->execute();
     }
 }
