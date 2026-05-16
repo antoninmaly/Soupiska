@@ -7,6 +7,54 @@
                 Týmová soupiska
             </h2>
         </div>
+
+        <?php
+        $totalPlayers = count($players);
+        $totalValue = 0;
+        $averageAge = 0;
+        $currentYear = (int)date('Y');
+
+        if ($totalPlayers > 0) {
+            $ageSum = 0;
+            foreach ($players as $p) {
+                // Přičtení tržní hodnoty
+                $totalValue += (float)($p['market_value'] ?? 0);
+                
+                // Výpočet průměrného věku (převod z birth_date na věk)
+                if (!empty($p['birth_date'])) {
+                    $birthYear = (int)date('Y', strtotime($p['birth_date']));
+                    $ageSum += ($currentYear - $birthYear);
+                }
+            }
+            $averageAge = round($ageSum / $totalPlayers, 1);
+        }
+        ?>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+            <div class="bg-white border-2 border-blue-900 rounded-xl p-4 shadow-sm text-slate-800 flex items-center justify-between">
+                <div>
+                    <span class="block text-[10px] font-black uppercase tracking-widest text-blue-900">Šířka kádru</span>
+                    <span class="text-2xl font-black font-mono mt-0.5 block text-slate-800"><?= $totalPlayers ?> <span class="text-xs font-bold text-slate-400">hráčů</span></span>
+                </div>
+                <span class="text-2xl bg-blue-50 p-2.5 rounded-lg">🏃‍♂️</span>
+            </div>
+
+            <div class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm flex items-center justify-between">
+                <div>
+                    <span class="block text-[10px] font-black uppercase tracking-widest text-slate-400">Věkový průměr</span>
+                    <span class="text-2xl font-black font-mono mt-0.5 block text-slate-800"><?= $averageAge ?> <span class="text-xs font-bold text-slate-400">let</span></span>
+                </div>
+                <span class="text-2xl bg-slate-100 p-2.5 rounded-lg">📊</span>
+            </div>
+
+            <div class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm flex items-center justify-between">
+                <div>
+                    <span class="block text-[10px] font-black uppercase tracking-widest text-slate-400">Hodnota kádru</span>
+                    <span class="text-2xl font-black font-mono mt-0.5 block text-emerald-600">€ <?= number_format($totalValue, 1, ',', ' ') ?>M</span>
+                </div>
+                <span class="text-2xl bg-emerald-50 p-2.5 rounded-lg">💰</span>
+            </div>
+        </div>
         
         <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-xl">
             <?php if (empty($players)): ?>
