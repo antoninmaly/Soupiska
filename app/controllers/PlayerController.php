@@ -350,6 +350,11 @@ class PlayerController {
             }
         }
 
+        // --- NAČTENÍ KOMENTÁŘŮ ---
+        require_once '../app/models/Comment.php';
+        $commentModel = new Comment($db);
+        $comments = $commentModel->getByPlayerId($id); // $comments pak použijeme v player_show.php
+
         // Načtení připraveného souboru s HTML profilem hráče
         require_once '../app/views/players/player_show.php';
     }

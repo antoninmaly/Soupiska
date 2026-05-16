@@ -53,12 +53,16 @@ class Player {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Získání jednoho konkrétního hráče podle ID
+    // Získání jednoho konkrétního hráče podle ID včetně jména tvůrce
     public function getById($id) {
-        $sql = "SELECT * FROM players WHERE id = :id";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute([':id' => $id]);
-        
+        $query = "SELECT p.*, u.username, u.first_name AS user_first_name, u.last_name AS user_last_name, u.nickname AS user_nickname 
+                  FROM players p
+                  LEFT JOIN users u ON p.created_by = u.id
+                  WHERE p.id = :id LIMIT 0,1";
+                  
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
