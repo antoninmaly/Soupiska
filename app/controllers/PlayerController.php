@@ -14,7 +14,16 @@ class PlayerController {
 
         // Inicializace modelu a získání dat
         $playerModel = new Player($db);
-        $players = $playerModel->getAll(); // Proměnná $players nyní obsahuje pole všech hráčů
+        // Podíváme se, jestli uživatel nehledá konkrétního hráče
+        $search = isset($_GET['search']) ? trim($_GET['search']) : '';
+
+        if (!empty($search)) {
+            // Pokud vyhledává, zavoláme upravenou metodu
+            $players = $playerModel->getAll($search);
+        } else {
+            // Pokud nevyhledává, načte se klasicky celá soupiska
+            $players = $playerModel->getAll();
+        }
         
         // Načte se (vloží) připravený soubor s HTML strukturou
         require_once '../app/views/players/players_list.php';

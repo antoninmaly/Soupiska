@@ -40,16 +40,29 @@ class Player {
         ]);
     }
 
-    // Získání všech hráčů z databáze (včetně názvu pozice)
-    public function getAll() {
+    // Získání všech hráčů z databázi (volitelně vyfiltrovaných podle jména, příjmení nebo klubu)
+    public function getAll(?string $search = null) {
         $sql = "SELECT players.*, positions.name AS position_name 
                 FROM players 
-                LEFT JOIN positions ON players.position_id = positions.id 
-                ORDER BY players.id DESC";
+                LEFT JOIN positions ON players.position_id = positions.id";
+        
+        // Pokud byl zadán vyhledávací řetězec, přidáme do SQL dotazu podmínku WHERE
+        if ($search !== null && $search !== '') {
+            $sql .= " WHERE players.first_name LIKE :search 
+                      OR players.last_name LIKE :search 
+                      OR players.club LIKE :search";
+        }
+        
+        $sql .= " ORDER BY players.id DESC";
                 
         $stmt = $this->db->prepare($sql);
-        $stmt->execute();
         
+        if ($search !== null && $search !== '') {
+            $searchTerm = '%' . $search . '%';
+            $stmt->bindParam(':search', $searchTerm);
+        }
+        
+        $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 

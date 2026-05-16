@@ -15,7 +15,21 @@
                 <img src="<?= BASE_URL ?>/img/logo.png" alt="Soupiska Logo" 
                      class="h-12 md:h-14 w-auto bg-white px-4 py-2 rounded-xl shadow-sm transition-transform duration-300 group-hover:scale-105 border border-blue-200">
             </a>
-            
+
+            <div class="mt-4 md:mt-0 w-full md:w-64 mx-0 md:mx-4">
+                <form action="<?= BASE_URL ?>/index.php" method="GET" class="relative">
+                    <input type="hidden" name="search_submit" value="1">
+                    <input type="text" name="search" value="<?= htmlspecialchars($_GET['search'] ?? '') ?>" 
+                           placeholder="Hledat hráče..." 
+                           class="w-full bg-blue-800/40 text-white placeholder-blue-200 text-xs rounded-full pl-10 pr-4 py-2 border border-blue-500/30 focus:outline-none focus:border-blue-300 focus:bg-blue-800/60 transition-all">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg class="h-4 w-4 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+                </form>
+            </div>
+
             <nav class="mt-4 md:mt-0">
                 <ul class="flex items-center space-x-6 text-sm uppercase tracking-wider font-bold">
                     <li>
