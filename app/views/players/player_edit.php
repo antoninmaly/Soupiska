@@ -52,8 +52,8 @@
                         </div>
                         
                         <div>
-                            <label for="jersey_number" class="block text-xs font-bold text-blue-900 mb-1.5 uppercase tracking-wider">Číslo dresu <span class="text-rose-500">*</span></label>
-                            <input type="number" id="jersey_number" name="jersey_number" value="<?= htmlspecialchars($player['jersey_number']) ?>" required 
+                            <label for="nationality" class="block text-xs font-bold text-blue-900 mb-1.5 uppercase tracking-wider">Národnost<span class="text-rose-500">*</span></label>
+                            <input type="text" id="nationality" name="nationality" value="<?= htmlspecialchars($player['nationality']) ?>" required
                                    class="w-full bg-slate-50 border border-gray-300 rounded-xl px-4 py-3 text-slate-800 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
                         </div>
 
@@ -70,8 +70,8 @@
                         </div>
                         
                         <div>
-                            <label for="nationality" class="block text-xs font-bold text-blue-900 mb-1.5 uppercase tracking-wider">Národnost</label>
-                            <input type="text" id="nationality" name="nationality" value="<?= htmlspecialchars($player['nationality']) ?>" 
+                            <label for="jersey_number" class="block text-xs font-bold text-blue-900 mb-1.5 uppercase tracking-wider">Číslo dresu </label>
+                            <input type="number" id="jersey_number" name="jersey_number" value="<?= htmlspecialchars($player['jersey_number']) ?>"  
                                    class="w-full bg-slate-50 border border-gray-300 rounded-xl px-4 py-3 text-slate-800 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
                         </div>
                         

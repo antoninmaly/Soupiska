@@ -8,11 +8,18 @@
             
             <div class="flex space-x-4 text-sm font-bold uppercase tracking-wider">
                 <?php 
-                $isAdmin = isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1;
-                if (isset($_SESSION['user_id']) && ($_SESSION['user_id'] === $player['created_by'] || $isAdmin)): 
+                // Nejdřív ověříme, zda je uživatel vůbec přihlášený
+                if (isset($_SESSION['user_id'])): 
+                    $isAdmin = isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1;
+                    
+                    // Tlačítko uvidí pouze ten, kdo hráče vytvořil, NEBO administrátor
+                    if ($_SESSION['user_id'] == $player['created_by'] || $isAdmin): 
                 ?>
-                    <a href="<?= BASE_URL ?>/index.php?url=player/edit/<?= $player['id'] ?>" class="text-blue-600 hover:text-blue-800 transition-colors">Upravit profil</a>
-                <?php endif; ?>
+                        <a href="<?= BASE_URL ?>/index.php?url=player/edit/<?= $player['id'] ?>" class="text-blue-600 hover:text-blue-800 transition-colors">Upravit profil</a>
+                <?php 
+                    endif;
+                endif; 
+                ?>
             </div>
         </div>
 

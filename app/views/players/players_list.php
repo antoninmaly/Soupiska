@@ -109,21 +109,26 @@
                                             <a href="<?= BASE_URL ?>/index.php?url=player/show/<?= $player['id'] ?>" class="text-slate-500 hover:text-blue-700 transition-colors px-1 py-1">Detail</a>
                                             
                                             <?php 
-                                            $isAdmin = isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1;
-                                            
-                                            // 1. HRÁČ JE MŮJ (Vytvořil jsem ho já) -> Výrazná plně vybarvená tlačítka
-                                            if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $player['created_by']): 
-                                            ?>
-                                                <a href="<?= BASE_URL ?>/index.php?url=player/edit/<?= $player['id'] ?>" class="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded transition-colors shadow-sm">Upravit</a>
-                                                <a href="<?= BASE_URL ?>/index.php?url=player/delete/<?= $player['id'] ?>" onclick="return confirm('Opravdu chceš tohoto hráče vyřadit ze soupisky?')" class="bg-rose-500 hover:bg-rose-600 text-white px-2 py-1 rounded transition-colors shadow-sm">Smazat</a>
+                                            // BEZPEČNOSTNÍ POJISTKA: Akce upravit/smazat uvidí POUZE přihlášený uživatel
+                                            if (isset($_SESSION['user_id'])): 
+                                                $isAdmin = isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1;
                                                 
-                                            <?php 
-                                            // 2. HRÁČ NENÍ MŮJ, ALE JSEM ADMIN -> Zobrazí se jako "průhledná" obrysová tlačítka
-                                            elseif ($isAdmin): 
+                                                // 1. HRÁČ JE MŮJ (Vytvořil jsem ho já) -> Výrazná plně vybarvená tlačítka
+                                                if ($_SESSION['user_id'] == $player['created_by']): 
+                                                ?>
+                                                    <a href="<?= BASE_URL ?>/index.php?url=player/edit/<?= $player['id'] ?>" class="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded transition-colors shadow-sm">Upravit</a>
+                                                    <a href="<?= BASE_URL ?>/index.php?url=player/delete/<?= $player['id'] ?>" onclick="return confirm('Opravdu chceš tohoto hráče vyřadit ze soupisky?')" class="bg-rose-500 hover:bg-rose-600 text-white px-2 py-1 rounded transition-colors shadow-sm">Smazat</a>
+                                                    
+                                                <?php 
+                                                // 2. HRÁČ NENÍ MŮJ, ALE JSEM ADMIN -> Zobrazí se jako "průhledná" obrysová tlačítka
+                                                elseif ($isAdmin): 
+                                                ?>
+                                                    <a href="<?= BASE_URL ?>/index.php?url=player/edit/<?= $player['id'] ?>" class="border border-blue-400 text-blue-500 hover:bg-blue-50 px-2 py-1 rounded transition-colors">Upravit</a>
+                                                    <a href="<?= BASE_URL ?>/index.php?url=player/delete/<?= $player['id'] ?>" onclick="return confirm('Jako administrátor mažete cizího hráče. Pokračovat?')" class="border border-rose-400 text-rose-500 hover:bg-rose-50 px-2 py-1 rounded transition-colors">Smazat</a>
+                                                <?php 
+                                                endif;
+                                            endif; // Konec kontroly přihlášení
                                             ?>
-                                                <a href="<?= BASE_URL ?>/index.php?url=player/edit/<?= $player['id'] ?>" class="border border-blue-400 text-blue-500 hover:bg-blue-50 px-2 py-1 rounded transition-colors">Upravit</a>
-                                                <a href="<?= BASE_URL ?>/index.php?url=player/delete/<?= $player['id'] ?>" onclick="return confirm('Jako administrátor mažete cizího hráče. Pokračovat?')" class="border border-rose-400 text-rose-500 hover:bg-rose-50 px-2 py-1 rounded transition-colors">Smazat</a>
-                                            <?php endif; ?>
                                         </div>
                                     </td>
                                 </tr>
