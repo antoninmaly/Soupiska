@@ -79,7 +79,30 @@
                             <label for="description" class="block text-xs font-bold text-blue-900 mb-1.5 uppercase tracking-wider">Popis hráče</label>
                             <textarea id="description" name="description" rows="4" 
                                       class="w-full bg-slate-50 border border-gray-300 rounded-xl px-4 py-3 text-slate-800 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"><?= htmlspecialchars($player['description']) ?></textarea>
-                        </div>    
+                        </div>
+
+                        <?php 
+                        $currentImages = [];
+                        if (!empty($player['images'])) {
+                            $decoded = json_decode($player['images'], true);
+                            if (is_array($decoded)) {
+                                $currentImages = $decoded;
+                            }
+                        }
+                        ?>
+                        <?php if (!empty($currentImages)): ?>
+                            <div class="md:col-span-2 bg-blue-50/50 border border-blue-100 rounded-xl p-4 mb-2">
+                                <label class="block text-xs font-bold text-blue-900 mb-3 uppercase tracking-wider">Aktuální fotografie hráče</label>
+                                <div class="flex flex-wrap gap-4">
+                                    <?php foreach ($currentImages as $img): ?>
+                                        <div class="w-24 h-24 rounded-lg overflow-hidden border border-gray-300 shadow-sm bg-white">
+                                            <img src="<?= BASE_URL ?>/uploads/<?= htmlspecialchars($img) ?>" alt="Náhled fotky" class="w-full h-full object-cover">
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                                <p class="text-xs text-slate-500 mt-3 italic">Pokud níže nenahrajete žádné nové soubory, tyto fotografie zůstanou bezpečně zachovány.</p>
+                            </div>
+                        <?php endif; ?>
                         
                         <div class="md:col-span-2">
                             <label class="block text-xs font-bold text-blue-900 mb-2 uppercase tracking-wider">Změnit fotografii (ponechte prázdné, pokud nechcete měnit)</label>
