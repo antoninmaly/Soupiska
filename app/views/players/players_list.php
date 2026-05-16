@@ -23,7 +23,7 @@
                                 <th class="px-6 py-4 font-bold uppercase text-xs tracking-wider">Klub</th>
                                 <th class="px-6 py-4 font-bold uppercase text-xs tracking-wider">Národnost</th>
                                 <th class="px-6 py-4 font-bold uppercase text-xs tracking-wider">Pozice</th>
-                                <th class="px-6 py-4 font-bold uppercase text-xs tracking-wider">Ročník</th>
+                                <th class="px-6 py-4 font-bold uppercase text-xs tracking-wider">Datum narození</th>
                                 <th class="px-6 py-4 font-bold uppercase text-xs tracking-wider text-center">Akce</th>
                             </tr>
                         </thead>
@@ -35,26 +35,26 @@
                                             <?= htmlspecialchars($player['jersey_number']) ?>
                                         </span>
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="font-bold text-slate-800 text-lg group-hover:text-blue-700 transition-colors">
                                             <a href="<?= BASE_URL ?>/index.php?url=player/show/<?= $player['id'] ?>" class="hover:underline">
                                                 <?= htmlspecialchars($player['first_name'] . ' ' . $player['last_name']) ?>
                                             </a>
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 text-slate-600 font-medium">
+                                    <td class="px-6 py-4 text-slate-600 font-medium whitespace-nowrap">
                                         <?= htmlspecialchars($player['club']) ?>
                                     </td>
-                                    <td class="px-6 py-4 font-medium text-slate-700">
+                                    <td class="px-6 py-4 font-medium text-slate-700 whitespace-nowrap">
                                         <?= !empty($player['nationality']) ? htmlspecialchars($player['nationality']) : '---' ?>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <span class="bg-blue-100/50 text-blue-800 px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider border border-blue-200">
+                                        <span class="inline-block whitespace-nowrap bg-blue-100/50 text-blue-800 px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider border border-blue-200">
                                             <?= htmlspecialchars($player['position_name'] ?? 'Nezařazeno') ?>
                                         </span>
                                     </td>
-                                    <td class="px-6 py-4 text-slate-500 font-mono font-medium">
-                                        <?= htmlspecialchars($player['birth_year']) ?>
+                                   <td class="px-6 py-4 text-slate-500 font-mono font-medium">
+                                        <?= !empty($player['birth_date']) ? htmlspecialchars(date('j.n.Y', strtotime($player['birth_date']))) : '---' ?>
                                     </td>
                                     <td class="px-6 py-4 text-center">
                                         <div class="flex justify-center space-x-4 text-sm font-semibold tracking-wide">

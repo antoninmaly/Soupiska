@@ -20,21 +20,26 @@
             
             <div class="md:col-span-4 bg-slate-100 p-6 flex flex-col items-center justify-center border-b md:border-b-0 md:border-r border-gray-200">
                 <?php 
-                // Bezpečné dekódování fotek z DB
+                // Bezpečné dekódování fotek z DB z formátu JSON na PHP pole
                 $images = [];
-                if (!empty($player['images_json'])) {
-                    $images = json_decode($player['images_json'], true);
+                $dbImagesData = $player['images'] ?? $player['images_json'] ?? '';
+
+                if (!empty($dbImagesData)) {
+                    $decoded = json_decode($dbImagesData, true);
+                    if (is_array($decoded)) {
+                        $images = $decoded;
+                    }
                 }
                 ?>
 
-                <?php if (!empty($images) && is_array($images)): ?>
+                <?php if (!empty($images)): ?>
                     <div class="w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-md border border-gray-200 bg-white mb-4">
                         <img src="<?= BASE_URL ?>/uploads/<?= htmlspecialchars($images[0]) ?>" 
                              alt="Profilové foto" class="w-full h-full object-cover">
                     </div>
                     
                     <?php if (count($images) > 1): ?>
-                        <div class="grid grid-cols-4 gap-2 w-full">
+                        <div class="grid grid-cols-4 gap-2 w-full mt-2">
                             <?php foreach ($images as $img): ?>
                                 <div class="aspect-square rounded-md overflow-hidden border border-gray-300 bg-white cursor-pointer hover:border-blue-500 transition-colors">
                                     <img src="<?= BASE_URL ?>/uploads/<?= htmlspecialchars($img) ?>" class="w-full h-full object-cover">
@@ -78,8 +83,10 @@
                             </span>
                         </div>
                         <div>
-                            <span class="block text-[10px] font-black text-slate-400 uppercase tracking-wider mb-0.5">Rok narození</span>
-                            <span class="text-slate-800 font-mono font-bold text-lg"><?= htmlspecialchars($player['birth_year']) ?></span>
+                            <span class="block text-[10px] font-black text-slate-400 uppercase tracking-wider mb-0.5">Datum narození</span>
+                            <span class="text-slate-800 font-mono font-bold text-lg">
+                                <?= !empty($player['birth_date']) ? htmlspecialchars(date('j.n.Y', strtotime($player['birth_date']))) : '---' ?>
+                            </span>
                         </div>
                         <div class="col-span-2 sm:col-span-1">
                             <span class="block text-[10px] font-black text-slate-400 uppercase tracking-wider mb-0.5">Tržní hodnota</span>

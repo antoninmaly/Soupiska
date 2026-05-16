@@ -13,15 +13,15 @@ class Player {
         int $position_id,
         string $club,
         int $jersey_number,
-        int $birth_year,
+        string $birth_date,
         float $market_value,
         string $nationality,
         string $description,
         array $images,
         int $userId
     ): bool {
-        $sql = "INSERT INTO players (first_name, last_name, position_id, club, jersey_number, birth_year, market_value, nationality, description, images, created_by)
-                VALUES (:first_name, :last_name, :position_id, :club, :jersey_number, :birth_year, :market_value, :nationality, :description, :images, :created_by)";
+        $sql = "INSERT INTO players (first_name, last_name, position_id, club, jersey_number, birth_date, market_value, nationality, description, images, created_by)
+                VALUES (:first_name, :last_name, :position_id, :club, :jersey_number, :birth_date, :market_value, :nationality, :description, :images, :created_by)";
         
         $stmt = $this->db->prepare($sql);
 
@@ -31,7 +31,7 @@ class Player {
             ':position_id' => $position_id,
             ':club' => $club,
             ':jersey_number' => $jersey_number,
-            ':birth_year' => $birth_year,
+            ':birth_date' => $birth_year,
             ':market_value' => $market_value,
             ':nationality' => $nationality,
             ':description' => $description,
@@ -65,7 +65,7 @@ class Player {
     // Aktualizace existujícího hráče
     public function update(
         $id, $first_name, $last_name, $position_id, $club, 
-        $jersey_number, $birth_year, $market_value, $nationality, $description, $images = []
+        $jersey_number, $birth_date, $market_value, $nationality, $description, $images = []
     ) {
         $sql = "UPDATE players 
                 SET first_name = :first_name, 
@@ -73,7 +73,7 @@ class Player {
                     position_id = :position_id, 
                     club = :club,
                     jersey_number = :jersey_number, 
-                    birth_year = :birth_year, 
+                    birth_date = :birth_date, 
                     market_value = :market_value, 
                     nationality = :nationality, 
                     description = :description, 
@@ -89,7 +89,7 @@ class Player {
             ':position_id' => $position_id,
             ':club' => $club,
             ':jersey_number' => $jersey_number,
-            ':birth_year' => $birth_year,
+            ':birth_date' => $birth_date,
             ':market_value' => $market_value,
             ':nationality' => $nationality,
             ':description' => $description,

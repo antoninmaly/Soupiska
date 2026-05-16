@@ -6,7 +6,7 @@
             <div class="mb-6 flex items-center justify-between border-b border-gray-200 pb-4">
                 <div>
                     <h2 class="text-3xl font-bold tracking-tight text-blue-900 uppercase">Přidat hráče</h2>
-                    <p class="text-slate-500 italic mt-1 text-sm">Vyplňte údaje o novém fotbalistovi pro zařazení na soupisku.</p>
+                    <p class="text-slate-500 italic mt-1 text-sm">Vyplňte údaje o fotbalistovi pro zařazení na soupisku.</p>
                 </div>
                 <a href="<?= BASE_URL ?>/index.php" class="text-blue-600 hover:text-blue-800 transition-colors text-sm font-bold uppercase tracking-wider">&larr; Zpět</a>
             </div>
@@ -50,26 +50,26 @@
                         </div>
                         
                         <div>
-                            <label for="jersey_number" class="block text-xs font-bold text-blue-900 mb-1.5 uppercase tracking-wider">Číslo dresu <span class="text-rose-500">*</span></label>
-                            <input type="number" id="jersey_number" name="jersey_number" required min="1" max="99"
+                            <label for="nationality" class="block text-xs font-bold text-blue-900 mb-1.5 uppercase tracking-wider">Národnost<span class="text-rose-500">*</span></label>
+                            <input type="text" id="nationality" name="nationality" required 
                                    class="w-full bg-slate-50 border border-gray-300 rounded-xl px-4 py-3 text-slate-800 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
                         </div>
 
                         <div>
-                            <label for="birth_year" class="block text-xs font-bold text-blue-900 mb-1.5 uppercase tracking-wider">Rok narození <span class="text-rose-500">*</span></label>
-                            <input type="number" id="birth_year" name="birth_year" required 
-                                   class="w-full bg-slate-50 border border-gray-300 rounded-xl px-4 py-3 text-slate-800 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
+                            <label for="birth_date" class="block text-xs font-bold text-blue-900 mb-1.5 uppercase tracking-wider">Datum narození <span class="text-rose-500">*</span></label>
+                            <input type="date" id="birth_date" name="birth_date" required 
+                                class="w-full bg-slate-50 border border-gray-300 rounded-xl px-4 py-3 text-slate-800 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
                         </div>
                         
+                        <div>
+                            <label for="jersey_number" class="block text-xs font-bold text-blue-900 mb-1.5 uppercase tracking-wider">Číslo dresu</label>
+                            <input type="number" id="jersey_number" name="jersey_number" min="1" max="99"
+                                   class="w-full bg-slate-50 border border-gray-300 rounded-xl px-4 py-3 text-slate-800 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
+                        </div>
+
                         <div>
                             <label for="market_value" class="block text-xs font-bold text-blue-900 mb-1.5 uppercase tracking-wider">Tržní hodnota (€)</label>
                             <input type="number" id="market_value" name="market_value" step="0.1" placeholder="Např. 12.5"
-                                   class="w-full bg-slate-50 border border-gray-300 rounded-xl px-4 py-3 text-slate-800 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
-                        </div>
-                        
-                        <div>
-                            <label for="nationality" class="block text-xs font-bold text-blue-900 mb-1.5 uppercase tracking-wider">Národnost</label>
-                            <input type="text" id="nationality" name="nationality" placeholder="CZE"
                                    class="w-full bg-slate-50 border border-gray-300 rounded-xl px-4 py-3 text-slate-800 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
                         </div>
                         

@@ -69,7 +69,7 @@ class PlayerController {
             // U číselných hodnot se provádí explicitní přetypování
             $position_id = (int)($_POST['position_id'] ?? 0);
             $jersey_number = (int)($_POST['jersey_number'] ?? 0);
-            $birth_year = (int)($_POST['birth_year'] ?? 0);
+            $birth_date = htmlspecialchars($_POST['birth_date'] ?? '');
             $market_value = (float)($_POST['market_value'] ?? 0);
 
             // Zavolání metody, která zpracuje soubory v $_FILES
@@ -88,7 +88,7 @@ class PlayerController {
             $playerModel = new Player($db);
             $isSaved = $playerModel->create(
                 $first_name, $last_name, $position_id, $club, $jersey_number, 
-                $birth_year, $market_value, $nationality, $description, $uploadedImages, $userId
+                $birth_date, $market_value, $nationality, $description, $uploadedImages, $userId
             );
 
             // 3. Vyhodnocení výsledku a přesměrování
@@ -276,7 +276,7 @@ class PlayerController {
             // Přetypování číselných hodnot
             $position_id = (int)($_POST['position_id'] ?? 0);
             $jersey_number = (int)($_POST['jersey_number'] ?? 0);
-            $birth_year = (int)($_POST['birth_year'] ?? 0);
+            $birth_date = htmlspecialchars($_POST['birth_date'] ?? '');
             $market_value = (float)($_POST['market_value'] ?? 0);
 
             // Zavolání metody, která zpracuje soubory v $_FILES
@@ -290,7 +290,7 @@ class PlayerController {
             // 3. Volání updatu nad modelem
             $isUpdated = $playerModel->update(
                 $id, $first_name, $last_name, $position_id, $club, 
-                $jersey_number, $birth_year, $market_value, $nationality, $description, $uploadedImages
+                $jersey_number, $birth_date, $market_value, $nationality, $description, $uploadedImages
             );
 
             // 4. Vyhodnocení výsledku a přesměrování

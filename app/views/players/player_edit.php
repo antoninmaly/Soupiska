@@ -6,7 +6,7 @@
             <div class="mb-6 flex items-center justify-between border-b border-gray-200 pb-4">
                 <div>
                     <h2 class="text-3xl font-bold tracking-tight text-blue-900 uppercase">
-                        Upravit hráče <span class="text-blue-500">#<?= htmlspecialchars($player['id']) ?></span>
+                        Upravit hráče <span class="text-blue-500"></span>
                     </h2>
                     <p class="text-slate-500 italic mt-1 text-sm">Provádíte změny u hráče: <strong class="text-blue-900"><?= htmlspecialchars($player['first_name'] . ' ' . $player['last_name']) ?></strong></p>
                 </div>
@@ -57,10 +57,10 @@
                                    class="w-full bg-slate-50 border border-gray-300 rounded-xl px-4 py-3 text-slate-800 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
                         </div>
 
-                        <div>
-                            <label for="birth_year" class="block text-xs font-bold text-blue-900 mb-1.5 uppercase tracking-wider">Rok narození <span class="text-rose-500">*</span></label>
-                            <input type="number" id="birth_year" name="birth_year" value="<?= htmlspecialchars($player['birth_year']) ?>" required 
-                                   class="w-full bg-slate-50 border border-gray-300 rounded-xl px-4 py-3 text-slate-800 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
+                       <div>
+                            <label for="birth_date" class="block text-xs font-bold text-blue-900 mb-1.5 uppercase tracking-wider">Datum narození <span class="text-rose-500">*</span></label>
+                            <input type="date" id="birth_date" name="birth_date" value="<?= htmlspecialchars($player['birth_date']) ?>" required 
+                                class="w-full bg-slate-50 border border-gray-300 rounded-xl px-4 py-3 text-slate-800 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
                         </div>
                         
                         <div>
