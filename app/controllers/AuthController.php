@@ -222,7 +222,7 @@ class AuthController {
         require_once '../app/views/auth/users_list.php';
     }
 
-    // --- Pomocné metody pro notifikace (stejné jako v BookControlleru) ---
+    // --- Pomocné metody pro notifikace ---
     protected function addSuccessMessage($message) {
         $_SESSION['messages']['success'][] = $message;
     }
