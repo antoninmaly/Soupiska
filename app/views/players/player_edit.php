@@ -64,14 +64,14 @@
                         </div>
                         
                         <div>
-                            <label for="market_value" class="block text-xs font-bold text-blue-900 mb-1.5 uppercase tracking-wider">Tržní hodnota (€)</label>
-                            <input type="number" id="market_value" name="market_value" step="0.1" value="<?= htmlspecialchars($player['market_value']) ?>" 
-                                   class="w-full bg-slate-50 border border-gray-300 rounded-xl px-4 py-3 text-slate-800 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
-                        </div>
-                        
-                        <div>
                             <label for="jersey_number" class="block text-xs font-bold text-blue-900 mb-1.5 uppercase tracking-wider">Číslo dresu </label>
                             <input type="number" id="jersey_number" name="jersey_number" value="<?= htmlspecialchars($player['jersey_number']) ?>"  
+                                   class="w-full bg-slate-50 border border-gray-300 rounded-xl px-4 py-3 text-slate-800 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
+                        </div>
+
+                        <div>
+                            <label for="market_value" class="block text-xs font-bold text-blue-900 mb-1.5 uppercase tracking-wider">Tržní hodnota (€)</label>
+                            <input type="number" id="market_value" name="market_value" step="0.1" value="<?= htmlspecialchars($player['market_value']) ?>" 
                                    class="w-full bg-slate-50 border border-gray-300 rounded-xl px-4 py-3 text-slate-800 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
                         </div>
                         
